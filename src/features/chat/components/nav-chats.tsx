@@ -33,7 +33,7 @@ export function NavChats() {
   });
 
   return (
-    <SidebarGroup className="group-data-[collapsible=icon]:hidden">
+    <SidebarGroup>
       <SidebarGroupLabel>Chats</SidebarGroupLabel>
       <SidebarMenu>
         {isLoading ? (
@@ -62,7 +62,7 @@ export function NavChats() {
 
         {chats.map((chat) => (
           <SidebarMenuItem key={chat.id}>
-            <SidebarMenuButton render={<Link href={`/chat/${chat.id}`} >{chat.title}</Link>} />
+            <SidebarMenuButton className="truncate" render={<Link href={`/chat/${chat.id}`} >{chat.title}</Link>} />
           </SidebarMenuItem>
         ))}
       </SidebarMenu>
