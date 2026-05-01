@@ -9,17 +9,20 @@ import {
   PromptInputTextarea,
 } from "@/components/ai-elements/prompt-input";
 import type { PromptInputMessage } from "@/components/ai-elements/prompt-input";
+import { useQueryClient } from "@tanstack/react-query";
 import { createConversation } from "@/features/chat/actions";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const handleSubmit = async ({ text }: PromptInputMessage) => {
     const title = text.trim();
     const createdConversation = await createConversation(
       title ? { title } : undefined,
     );
+    await queryClient.invalidateQueries({ queryKey: ["chats"] });
     router.push(`/chat/${createdConversation.id}`);
   };
 
