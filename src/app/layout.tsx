@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
-import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Kbd } from "@/components/ui/kbd";
@@ -15,11 +14,11 @@ import {
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { ChatSidebar } from "@/features/chat/components/chat-sidebar";
 import { ChatPromptInput } from "@/features/chat/components/chat-prompt-input";
+import Providers from "@/components/providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,52 +46,45 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <TooltipProvider>
-            <SidebarProvider className="[--header-height:--spacing(13)]">
-              <ChatSidebar />
-              <SidebarInset>
-                <header className="flex h-(--header-height) items-center justify-between px-4">
-                  <div className="flex">
-                    <Tooltip>
-                      <TooltipTrigger render={<SidebarTrigger />} />
-                      <TooltipContent>
-                        Toggle Sidebar <Kbd>Ctrl + B</Kbd>
-                      </TooltipContent>
-                    </Tooltip>
-                    <Tooltip>
-                      <TooltipTrigger
-                        render={
-                          <Button
-                            size="icon-sm"
-                            variant="ghost"
-                            nativeButton={false}
-                            render={
-                              <Link href="/">
-                                <PlusIcon />
-                              </Link>
-                            }
-                          />
-                        }
-                      />
-                      <TooltipContent>New chat</TooltipContent>
-                    </Tooltip>
-                  </div>
-                  <ThemeToggle />
-                </header>
-                <div className="mx-auto flex h-[calc(100dvh-var(--header-height))] w-full max-w-3xl flex-col overflow-hidden px-4">
-                  {children}
-                  <ChatPromptInput />
+        <Providers>
+          <SidebarProvider className="[--header-height:--spacing(13)]">
+            <ChatSidebar />
+            <SidebarInset>
+              <header className="flex h-(--header-height) items-center justify-between px-4">
+                <div className="flex">
+                  <Tooltip>
+                    <TooltipTrigger render={<SidebarTrigger />} />
+                    <TooltipContent>
+                      Toggle Sidebar <Kbd>Ctrl + B</Kbd>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger
+                      render={
+                        <Button
+                          size="icon-sm"
+                          variant="ghost"
+                          nativeButton={false}
+                          render={
+                            <Link href="/">
+                              <PlusIcon />
+                            </Link>
+                          }
+                        />
+                      }
+                    />
+                    <TooltipContent>New chat</TooltipContent>
+                  </Tooltip>
                 </div>
-              </SidebarInset>
-            </SidebarProvider>
-          </TooltipProvider>
-        </ThemeProvider>
+                <ThemeToggle />
+              </header>
+              <div className="mx-auto flex h-[calc(100dvh-var(--header-height))] w-full max-w-3xl flex-col overflow-hidden px-4">
+                {children}
+                <ChatPromptInput />
+              </div>
+            </SidebarInset>
+          </SidebarProvider>
+        </Providers>
       </body>
     </html>
   );
