@@ -19,6 +19,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { ChatSidebar } from "@/features/chat/components/chat-sidebar";
+import { ChatPromptInput } from "@/features/chat/components/chat-prompt-input";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -84,7 +85,10 @@ export default function RootLayout({
                   </div>
                   <ThemeToggle />
                 </header>
-                {children}
+                <div className="mx-auto flex h-[calc(100dvh-var(--header-height))] w-full max-w-3xl flex-col overflow-hidden px-4">
+                  {children}
+                  <ChatPromptInput />
+                </div>
               </SidebarInset>
             </SidebarProvider>
           </TooltipProvider>
