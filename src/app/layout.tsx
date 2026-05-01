@@ -1,6 +1,24 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import { ChatSidebar } from "@/features/chat/components/chat-sidebar";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Kbd } from "@/components/ui/kbd";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { PlusIcon } from "lucide-react";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +45,51 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TooltipProvider>
+            <SidebarProvider className="[--header-height:--spacing(13)]">
+              <ChatSidebar />
+              <SidebarInset>
+                <header className="flex h-(--header-height) items-center justify-between px-4">
+                  <div className="flex">
+                    <Tooltip>
+                      <TooltipTrigger render={<SidebarTrigger />} />
+                      <TooltipContent>
+                        Toggle Sidebar <Kbd>Ctrl + B</Kbd>
+                      </TooltipContent>
+                    </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger
+                        render={
+                          <Button
+                            size="icon-sm"
+                            variant="ghost"
+                            nativeButton={false}
+                            render={
+                              <Link href="/">
+                                <PlusIcon />
+                              </Link>
+                            }
+                          />
+                        }
+                      />
+                      <TooltipContent>New chat</TooltipContent>
+                    </Tooltip>
+                  </div>
+                  <ThemeToggle />
+                </header>
+                {children}
+              </SidebarInset>
+            </SidebarProvider>
+          </TooltipProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
