@@ -32,7 +32,13 @@ export const GET = async (_request: Request, { params }: RouteContext) => {
       .where(eq(message.conversationId, conversationId))
       .orderBy(asc(message.createdAt));
 
-    return NextResponse.json(conversationMessages);
+    const normalizedMessages = conversationMessages.map((item) => ({
+      id: item.id,
+      role: item.role,
+      parts: [{ type: "text", text: item.content }],
+    }));
+
+    return NextResponse.json(normalizedMessages);
   } catch {
     return NextResponse.json(
       { error: "Failed to fetch conversation messages" },
