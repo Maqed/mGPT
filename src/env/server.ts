@@ -5,7 +5,7 @@ export const env = createEnv({
   server: {
     DATABASE_URL: z.url(),
     NEXT_PUBLIC_BASE_URL: z.url().default("http://localhost:3000"),
-    
+
     GROQ_API_KEY: z.string(),
 
     REDIS_URL: z.string(),
