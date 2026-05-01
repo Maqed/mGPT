@@ -6,4 +6,6 @@ export const createConversationInputSchema = z.object({
   title: conversationTitleSchema.optional(),
 });
 
-export type CreateConversationInput = z.input<typeof createConversationInputSchema>;
+export type CreateConversationInput = z.input<
+  typeof createConversationInputSchema
+>;

@@ -27,7 +27,11 @@ const getChats = async (): Promise<Chat[]> => {
 };
 
 export function NavChats() {
-  const { data: chats = [], isLoading, isError } = useQuery({
+  const {
+    data: chats = [],
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["chats"],
     queryFn: getChats,
   });
@@ -38,9 +42,9 @@ export function NavChats() {
       <SidebarMenu>
         {isLoading ? (
           <>
-            <SidebarMenuSkeleton   />
-            <SidebarMenuSkeleton   />
-            <SidebarMenuSkeleton   />
+            <SidebarMenuSkeleton />
+            <SidebarMenuSkeleton />
+            <SidebarMenuSkeleton />
           </>
         ) : null}
 
@@ -62,7 +66,10 @@ export function NavChats() {
 
         {chats.map((chat) => (
           <SidebarMenuItem key={chat.id}>
-            <SidebarMenuButton className="truncate" render={<Link href={`/chat/${chat.id}`} >{chat.title}</Link>} />
+            <SidebarMenuButton
+              className="truncate"
+              render={<Link href={`/chat/${chat.id}`}>{chat.title}</Link>}
+            />
           </SidebarMenuItem>
         ))}
       </SidebarMenu>

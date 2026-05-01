@@ -9,10 +9,7 @@ type RouteContext = {
   }>;
 };
 
-export const GET = async (
-  _request: Request,
-  { params }: RouteContext,
-) => {
+export const GET = async (_request: Request, { params }: RouteContext) => {
   const { conversationId } = await params;
 
   if (!conversationId) {
