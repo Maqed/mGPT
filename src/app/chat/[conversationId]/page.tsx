@@ -2,9 +2,24 @@
 
 import { use } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Conversation, ConversationContent } from "@/components/ai-elements/conversation";
-import { Message, MessageContent, MessageResponse } from "@/components/ai-elements/message";
-import { PromptInput, PromptInputBody, PromptInputFooter, PromptInputProvider, PromptInputSubmit, PromptInputTextarea } from "@/components/ai-elements/prompt-input";
+import {
+  Conversation,
+  ConversationContent,
+} from "@/components/ai-elements/conversation";
+import {
+  Message,
+  MessageContent,
+  MessageResponse,
+} from "@/components/ai-elements/message";
+import {
+  PromptInput,
+  PromptInputBody,
+  PromptInputFooter,
+  PromptInputProvider,
+  PromptInputSubmit,
+  PromptInputTextarea,
+} from "@/components/ai-elements/prompt-input";
+import { useLocalStorage } from "usehooks-ts";
 
 type ChatConversationPageProps = {
   params: Promise<{
@@ -36,21 +51,24 @@ export default function ChatConversation({
   params,
 }: ChatConversationPageProps) {
   const { conversationId } = use(params);
+  const [localStorageMessage, setLocalStorageMessage] = useLocalStorage(
+    "user-prompt",
+    "",
+  );
 
-  const {
-    data: initialMessages = [],
-  } = useQuery({
+  const { data: initialMessages = [] } = useQuery({
     queryKey: ["conversation-messages", conversationId],
     queryFn: () => getConversationMessages(conversationId),
-    enabled: !!conversationId,
+    enabled: !!conversationId && localStorageMessage.length === 0,
   });
 
-  function handleSubmit(){}
+  function handleSubmit() {}
 
   return (
     <>
-    <Conversation className="min-h-0">
+      <Conversation className="min-h-0">
         <ConversationContent>
+          \
           {initialMessages.map((message) => (
             <Message key={message.id} from={message.role}>
               <MessageContent>
