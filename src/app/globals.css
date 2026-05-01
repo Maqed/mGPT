@@ -71,8 +71,8 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
   @keyframes skeleton {
-  100% {
-    transform: translateX(200%);
+    100% {
+      transform: translateX(200%);
     }
   }
 }
@@ -106,7 +106,7 @@
   --sidebar-foreground: oklch(0.141 0.005 285.823);
   --sidebar-primary: oklch(0.6204 0.195 253.83);
   --sidebar-primary-foreground: oklch(0.97 0.014 254.604);
-  --sidebar-accent: oklch(0.93 0.001 286.375);;
+  --sidebar-accent: oklch(0.93 0.001 286.375);
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: var(--foreground);
@@ -176,44 +176,47 @@
 }
 
 @utility pressible {
-    transition: transform 250ms var(--ease-smooth), background-color 100ms var(--ease-out), box-shadow 100ms var(--ease-out);
-    @apply transform-gpu motion-reduce:transition-none active:scale-[0.97] aria-expanded:scale-[0.97];
+  transition:
+    transform 250ms var(--ease-smooth),
+    background-color 100ms var(--ease-out),
+    box-shadow 100ms var(--ease-out);
+  @apply transform-gpu motion-reduce:transition-none active:scale-[0.97] aria-expanded:scale-[0.97];
 }
 
 @utility focus-ring {
-    @apply ring-2 ring-ring ring-offset-2 ring-offset-background outline-none;
+  @apply ring-2 ring-ring ring-offset-2 ring-offset-background outline-none;
 }
 
 @utility focus-field-ring {
-    @apply ring-2 ring-ring ring-offset-0 outline-none;
+  @apply ring-2 ring-ring ring-offset-0 outline-none;
 }
 
 @utility invalid-field-ring {
-    @apply outline-1 outline-destructive outline-solid;
+  @apply outline-1 outline-destructive outline-solid;
 }
 
 @utility invalid-field-ring-focus {
-    @apply ring-2 outline-none ring-destructive ring-offset-0;
+  @apply ring-2 outline-none ring-destructive ring-offset-0;
 }
 
 .skeleton--shimmer {
-    @apply relative overflow-hidden rtl:[--skeleton-animation-dir:reverse];
+  @apply relative overflow-hidden rtl:[--skeleton-animation-dir:reverse];
 }
 
 .skeleton--shimmer::after {
-    @apply absolute inset-0 -translate-x-full animate-skeleton bg-linear-to-r from-transparent via-surface-tertiary to-transparent content-[''];
-    animation-direction: var(--skeleton-animation-dir, normal);
+  @apply absolute inset-0 -translate-x-full animate-skeleton bg-linear-to-r from-transparent via-surface-tertiary to-transparent content-[''];
+  animation-direction: var(--skeleton-animation-dir, normal);
 }
 
 .skeleton--shimmer:has(.skeleton)::after {
-    content: none;
+  content: none;
 }
 
 .skeleton--shimmer:has(.skeleton)::before {
-    @apply absolute inset-0 z-10 pointer-events-none mix-blend-overlay -translate-x-full bg-linear-to-r from-transparent via-white/50 to-transparent animate-skeleton content-[''];
-    animation-direction: var(--skeleton-animation-dir, normal);
+  @apply absolute inset-0 z-10 pointer-events-none mix-blend-overlay -translate-x-full bg-linear-to-r from-transparent via-white/50 to-transparent animate-skeleton content-[''];
+  animation-direction: var(--skeleton-animation-dir, normal);
 }
 
 .skeleton--shimmer:has(.skeleton) .skeleton::after {
-    content: none;
+  content: none;
 }

@@ -1,24 +1,24 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { PlusIcon } from "lucide-react";
+import Link from "next/link";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { Button } from "@/components/ui/button";
+import { Kbd } from "@/components/ui/kbd";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { ChatSidebar } from "@/features/chat/components/chat-sidebar";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Kbd } from "@/components/ui/kbd";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { PlusIcon } from "lucide-react";
-import { ThemeProvider } from "@/components/theme-provider";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ChatSidebar } from "@/features/chat/components/chat-sidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
