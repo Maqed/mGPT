@@ -3,6 +3,7 @@ import { pgTable, uuid, text, timestamp } from "drizzle-orm/pg-core";
 export const conversation = pgTable("conversation", {
   id: uuid("id").defaultRandom().primaryKey(),
   title: text("title").notNull().default("New Chat"),
+  activeStreamId: text("active_stream_id"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
