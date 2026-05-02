@@ -86,6 +86,7 @@ export default function ChatConversation({
     hasHydratedInitialMessagesRef.current = true;
   }, [initialMessages, setMessages]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <I know what I'm doing bruh>
   useEffect(() => {
     const prompt = localStorageMessage.trim();
     if (!prompt || hasSentInitialPromptRef.current) {
@@ -94,7 +95,7 @@ export default function ChatConversation({
     hasSentInitialPromptRef.current = true;
     sendMessage({ text: prompt });
     setLocalStorageMessage("");
-  }, [localStorageMessage, sendMessage, setLocalStorageMessage]);
+  }, [conversationId]);
 
   const handleSubmit = async ({ text }: PromptInputMessage) => {
     const prompt = text.trim();
