@@ -1,9 +1,10 @@
 "use client";
 
-import { use, useEffect, useRef } from "react";
 import { useChat } from "@ai-sdk/react";
-import { DefaultChatTransport, type UIMessage } from "ai";
 import { useQuery } from "@tanstack/react-query";
+import { DefaultChatTransport, type UIMessage } from "ai";
+import { use, useEffect, useRef } from "react";
+import { useLocalStorage } from "usehooks-ts";
 import {
   Conversation,
   ConversationContent,
@@ -13,6 +14,7 @@ import {
   MessageContent,
   MessageResponse,
 } from "@/components/ai-elements/message";
+import type { PromptInputMessage } from "@/components/ai-elements/prompt-input";
 import {
   PromptInput,
   PromptInputBody,
@@ -21,8 +23,6 @@ import {
   PromptInputSubmit,
   PromptInputTextarea,
 } from "@/components/ai-elements/prompt-input";
-import type { PromptInputMessage } from "@/components/ai-elements/prompt-input";
-import { useLocalStorage } from "usehooks-ts";
 
 type ChatConversationPageProps = {
   params: Promise<{
@@ -57,15 +57,18 @@ export default function ChatConversation({
     enabled: !!conversationId && localStorageMessage.length === 0,
   });
 
-  const { messages, sendMessage, setMessages, status, stop } = useChat({
+  const { messages, sendMessage, setMessages, status } = useChat({
     id: conversationId,
+    resume: true,
     transport: new DefaultChatTransport({
-      api: "/api/chat",
-      prepareSendMessagesRequest: ({ messages: nextMessages }) => ({
+      prepareSendMessagesRequest: ({ id, messages: nextMessages }) => ({
         body: {
-          conversationId,
+          conversationId: id,
           messages: nextMessages,
         },
+      }),
+      prepareReconnectToStreamRequest: ({ id }) => ({
+        api: `/api/chat/${id}/stream`,
       }),
     }),
   });
@@ -126,11 +129,7 @@ export default function ChatConversation({
             <PromptInputTextarea />
           </PromptInputBody>
           <PromptInputFooter>
-            <PromptInputSubmit
-              className="ml-auto"
-              onStop={stop}
-              status={status}
-            />
+            <PromptInputSubmit className="ml-auto" status={status} />
           </PromptInputFooter>
         </PromptInput>
       </PromptInputProvider>
