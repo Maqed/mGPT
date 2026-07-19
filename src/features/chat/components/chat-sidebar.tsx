@@ -11,7 +11,7 @@ export function ChatSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar {...props}>
+    <Sidebar variant="inset" {...props}>
       <SidebarHeader>
         <Link href="/">mGPT</Link>
       </SidebarHeader>

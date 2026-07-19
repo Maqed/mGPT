@@ -217,6 +217,7 @@ function PromptInputPrimitive({
 }: React.ComponentProps<"div">) {
   return (
     <InputGroup
+    variant="secondary"
       className={cn(
         "max-h-60 has-data-[align=block-end]:rounded-b-none",
         className,

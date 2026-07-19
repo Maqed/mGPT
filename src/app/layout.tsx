@@ -77,7 +77,7 @@ export default function RootLayout({
                 </div>
                 <ThemeToggle />
               </header>
-              <div className="mx-auto flex h-[calc(100dvh-var(--header-height))] w-full max-w-3xl flex-col overflow-hidden px-4">
+              <div className="mx-auto flex h-[calc(100dvh-var(--header-height))] md:h-[calc(100dvh-var(--header-height)-10px)] w-full max-w-3xl flex-col overflow-hidden px-4">
                 {children}
               </div>
             </SidebarInset>
