@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "firstmedimpact-task-next",
+      "name": "mGPT",
       "dependencies": {
         "@ai-sdk/groq": "^3.0.53",
         "@ai-sdk/react": "^3.0.232",
