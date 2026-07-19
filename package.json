@@ -8,7 +8,8 @@
     "db": "drizzle-kit",
     "start": "next start",
     "lint": "biome check",
-    "format": "biome format --write"
+    "format": "biome format --write",
+		"herocn": "node -e \"const args=process.argv.slice(1); require('child_process').execSync('bunx shadcn add '+args.map(n=>'http://herocn.dev/r/'+n+'.json').join(' '),{stdio:'inherit'})\" --"
   },
   "dependencies": {
     "@ai-sdk/groq": "^3.0.53",
